@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Price;
+use Illuminate\Http\Response;
 use App\Http\Requests\StorePriceRequest;
 use App\Http\Requests\UpdatePriceRequest;
 
@@ -15,17 +16,7 @@ class PriceController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(Price::all(), Response::HTTP_OK);
     }
 
     /**
@@ -36,7 +27,7 @@ class PriceController extends Controller
      */
     public function store(StorePriceRequest $request)
     {
-        //
+        return response()->json(Price::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -47,18 +38,7 @@ class PriceController extends Controller
      */
     public function show(Price $price)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Price  $price
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Price $price)
-    {
-        //
+        return response()->json($price, Response::HTTP_OK);
     }
 
     /**
@@ -70,7 +50,8 @@ class PriceController extends Controller
      */
     public function update(UpdatePriceRequest $request, Price $price)
     {
-        //
+        $price->update($request->all());
+        return response()->json($price, Response::HTTP_OK);
     }
 
     /**
@@ -81,6 +62,7 @@ class PriceController extends Controller
      */
     public function destroy(Price $price)
     {
-        //
+        $price->delete();
+        return response()->json($price, Response::HTTP_OK);
     }
 }

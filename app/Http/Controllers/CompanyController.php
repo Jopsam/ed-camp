@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use Illuminate\Http\Response;
 
 class CompanyController extends Controller
 {
@@ -15,17 +16,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(Company::all(), Response::HTTP_OK);
     }
 
     /**
@@ -36,7 +27,7 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        //
+        return response()->json(Company::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -47,18 +38,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Company $company)
-    {
-        //
+        return response()->json($company, Response::HTTP_OK);
     }
 
     /**
@@ -70,7 +50,8 @@ class CompanyController extends Controller
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        //
+        $company->update($request->all());
+        return response()->json($company, Response::HTTP_OK);
     }
 
     /**
@@ -81,6 +62,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return response()->json($company, Response::HTTP_OK);
     }
 }

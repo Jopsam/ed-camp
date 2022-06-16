@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Http\Response;
 
 class StudentController extends Controller
 {
@@ -15,17 +16,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(Student::all(), Response::HTTP_OK);
     }
 
     /**
@@ -36,7 +27,7 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request)
     {
-        //
+        return response()->json(Student::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -47,18 +38,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Student  $student
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Student $student)
-    {
-        //
+        return response()->json($student, Response::HTTP_OK);
     }
 
     /**
@@ -70,7 +50,8 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        //
+        $student->update($request->all());
+        return response()->json($student, Response::HTTP_OK);
     }
 
     /**
@@ -81,6 +62,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return response()->json($student, Response::HTTP_OK);
     }
 }

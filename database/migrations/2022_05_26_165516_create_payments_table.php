@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsigedBigIncrements('student_id');
-            $table->unsignedBigIncrements('payment_id');
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('price_id');
             $table->string('observation', 255);
             $table->timestamps();
 
             $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('payment_id')->references('id')->on('payments');
+            $table->foreign('price_id')->references('id')->on('prices');
         });
     }
 

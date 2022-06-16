@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Price extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'type',
+        'cost',
+        'active',
+    ];
+
+    //====================== RELATIONSHIP ======================
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\UpdatePaymentRequest;
+use Illuminate\Http\Response;
 
 class PaymentController extends Controller
 {
@@ -15,17 +16,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json(Payment::all(), Response::HTTP_OK);
     }
 
     /**
@@ -36,7 +27,7 @@ class PaymentController extends Controller
      */
     public function store(StorePaymentRequest $request)
     {
-        //
+        return response()->json(Payment::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -47,18 +38,7 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Payment $payment)
-    {
-        //
+        return response()->json($payment, Response::HTTP_OK);
     }
 
     /**
@@ -70,7 +50,8 @@ class PaymentController extends Controller
      */
     public function update(UpdatePaymentRequest $request, Payment $payment)
     {
-        //
+        $payment->update($request->all());
+        return response()->json($payment, Response::HTTP_OK);
     }
 
     /**
@@ -81,6 +62,7 @@ class PaymentController extends Controller
      */
     public function destroy(Payment $payment)
     {
-        //
+        $payment->delete();
+        return response()->json($payment, Response::HTTP_OK);
     }
 }
